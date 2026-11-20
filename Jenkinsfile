@@ -7,7 +7,7 @@ node {
 
         stage('Checkout') {
             git branch: 'main',
-                url: 'https://github.com/archanareddyse/OLTRS.git'
+                url: 'https://github.com/Akshara-reddy612/OLTRS.git'
         }
 
         stage('Build') {
