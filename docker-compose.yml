@@ -1,0 +1,52 @@
+# services:
+#   web:
+#     image: nginx:latest
+#     container_name: web-container
+#     ports:
+#      - "8080:80"
+#     depends_on:
+#      - db
+#   db:
+#     image: mysql:8.0
+#     container_name: mysql-container
+#     environment:
+#       MYSQL_ROOT_PASSWORD: root124
+#       MYSQL_DATABASE: studentdb
+#       MYSQL_USER: student
+#       MYSQL_PASSWORD: student123
+#     ports:
+#       - "3307:3306"
+#     volumes:
+#       - mysql_data:/var/lib/mysql
+# volumes:
+#   mysql_data:
+
+services:
+  wordpress:
+    image: wordpress:latest
+    container_name: wordpress-container
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: student
+      WORDPRESS_DB_PASSWORD: student123
+      WORDPRESS_DB_NAME: studentdb
+
+  db:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root124
+      MYSQL_DATABASE: studentdb
+      MYSQL_USER: student
+      MYSQL_PASSWORD: student123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
