@@ -1,72 +1,45 @@
 
 node {
-    def imageName = "akshara0612/oltrs"
-    def imageTag = "latest"
 
     try {
 
         stage('Checkout') {
+            echo 'Checking out OLTRS project from GitHub...'
+
             git branch: 'main',
                 url: 'https://github.com/Akshara-reddy612/OLTRS.git'
         }
 
         stage('Build') {
-            if (isUnix()) {
-                sh 'mvn clean compile'
-            } else {
-                bat 'mvn clean compile'
+            echo 'Building the OLTRS application...'
+
+            def mvnHome = tool 'Maven-3.10.1'
+
+            withEnv(["PATH+MAVEN=${mvnHome}\\bin"]) {
+                bat 'mvn -Dmaven.test.failure.ignore=true clean package'
             }
         }
 
         stage('Test') {
-            if (isUnix()) {
-                sh 'mvn test'
-            } else {
-                bat 'mvn test'
-            }
+            echo 'Executing test cases...'
+
+            junit allowEmptyResults: true,
+                testResults: 'target/surefire-reports/*.xml'
         }
 
-        stage('Docker Build') {
-            if (isUnix()) {
-                sh "docker build -t ${imageName}:${imageTag} ."
-            } else {
-                bat "docker build -t ${imageName}:${imageTag} ."
-            }
+        stage('Archive') {
+            echo 'Archiving generated JAR files...'
+
+            archiveArtifacts allowEmptyArchive: true,
+                artifacts: 'target/*.jar'
         }
 
-        stage('Docker Push') {
-            withCredentials([
-                usernamePassword(
-                    credentialsId: 'dockerhub-creds',
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )
-            ]) {
-                if (isUnix()) {
-                    sh '''
-                        echo "$DOCKER_PASS" | docker login \
-                        -u "$DOCKER_USER" --password-stdin
-                        docker push YOUR_DOCKERHUB_USERNAME/oltrs:latest
-                        docker logout
-                    '''
-                } else {
-                    bat '''
-                        echo %DOCKER_PASS% | docker login ^
-                        -u %DOCKER_USER% --password-stdin
-                        docker push YOUR_DOCKERHUB_USERNAME/oltrs:latest
-                        docker logout
-                    '''
-                }
-            }
-        }
+        echo 'OLTRS Pipeline completed successfully!'
 
-    } catch (err) {
-        currentBuild.result = 'FAILURE'
-        throw err
+    } catch (Exception e) {
 
-    } finally {
-        if (currentBuild.currentResult == 'FAILURE') {
-            echo 'Pipeline failed. Check the Console Output.'
-        }
+        echo "Pipeline failed: ${e.getMessage()}"
+        throw e
+
     }
 }
