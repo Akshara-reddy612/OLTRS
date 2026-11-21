@@ -4,7 +4,7 @@ You need to enable the GitHub trigger.
 1. Open Jenkins dashboard.
 2. Select your Pipeline job.
 3. Click Configure.
-4. Find Build Triggers.
+4. Find Build Triggers.(clean test package0
 5. Select GitHub hook trigger for GITScm polling.
 6. Save.
 
