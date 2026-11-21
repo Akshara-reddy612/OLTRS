@@ -34,6 +34,66 @@ How to test
 4. Jenkins automatically starts the pipeline.
 5. Check Jenkins → Build History → Console Output.
 
+   # 1. Start Minikube
+minikube start --driver=docker
+
+# 2. Check Minikube status
+minikube status
+
+# 3. Create deployment with 2 replicas
+kubectl create deployment myapp --image=nginx:latest --replicas=2
+
+# 4. Check deployments
+kubectl get deployments
+
+# 5. Check pods
+kubectl get pods
+
+# 6. Expose application using NodePort
+kubectl expose deployment myapp --type=NodePort --port=80
+
+# 7. Check services
+kubectl get services
+
+# 8. Open application in browser
+minikube service myapp
+
+# 9. Scale deployment to 5 replicas
+kubectl scale deployment myapp --replicas=5
+
+# 10. Verify 5 replicas
+kubectl get pods
+
+# 11. Delete one pod (replace POD_NAME with actual pod name)
+kubectl delete pod POD_NAME
+
+# 12. Check automatic pod recreation
+kubectl get pods
+
+# 13. Perform rolling update
+kubectl set image deployment/myapp nginx=nginx:1.27-alpine
+
+# 14. Check rollout status
+kubectl rollout status deployment/myapp
+
+# 15. Check rollout history
+kubectl rollout history deployment/myapp
+
+# 16. Rollback to previous version
+kubectl rollout undo deployment/myapp
+
+# 17. Verify rollback
+kubectl rollout status deployment/myapp
+
+# 18. Check final deployment
+kubectl get deployments
+
+# 19. Check final pods
+kubectl get pods
+
+# 20. Check services
+kubectl get services
+
 
 Start Minikube and deploy the application using its Docker image.
 # Start Minikube
