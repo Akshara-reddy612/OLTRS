@@ -1,36 +1,37 @@
-hello
-<!-- Configure Jenkins
+
+Configure Jenkins
 You need to enable the GitHub trigger.
 1. Open Jenkins dashboard.
 2. Select your Pipeline job.
 3. Click Configure.
 4. Find Build Triggers.
 5. Select GitHub hook trigger for GITScm polling.
-6. Save. -->
-<!--next-->
-<!-- Configure GitHub Webhook
+6. Save.
+
+next
+Configure GitHub Webhook
 Open your GitHub repository.
 1. Go to Settings.
 2. Select Webhooks.
-3. Click Add webhook. -->
-<!-- //next -->
-<!-- Field	Value
+3. Click Add webhook.
+//next
+Field	Value
 Payload URL	http://localhost:8080/github-webhook/
 Content type	application/json
 Secret	Optional, configure securely
 Events	Just the push event
-Active	Checked -->
+Active	Checked
 
-<!-- How to test
+How to test
 1. Make a small change to a file in your GitHub repository.
 2. Commit and push the change.
 3. GitHub sends a webhook.
 4. Jenkins automatically starts the pipeline.
-5. Check Jenkins → Build History → Console Output. -->
+5. Check Jenkins → Build History → Console Output.
 
-<!-- 
-Start Minikube and deploy the application using its Docker image. -->
-<!-- # Start Minikube
+
+Start Minikube and deploy the application using its Docker image.
+# Start Minikube
 minikube start --driver=docker
 
 # Check Minikube status
@@ -49,11 +50,11 @@ kubectl get pods
 kubectl scale deployment food-management --replicas=4
 
 # Describe deployment
-kubectl describe deployment food-management -->
+kubectl describe deployment food-management
 
 
 
-<!-- # Scale deployment to 4 replicas
+# Scale deployment to 4 replicas
 kubectl scale deployment food-management --replicas=4
 
 # Check deployment
@@ -63,10 +64,10 @@ kubectl get deployments
 kubectl get pods
 
 # View deployment details
-kubectl describe deployment food-management -->
+kubectl describe deployment food-management
 
 
-<!-- Configure a NodePort service to expose the application and verify its accessibility through a browser
+Configure a NodePort service to expose the application and verify its accessibility through a browser
 
 # Expose deployment using NodePort
 kubectl expose deployment food-management --type=NodePort --port=80
@@ -81,20 +82,20 @@ minikube service food-management --url
 kubectl describe service food-management
 
 # Check pods
-kubectl get pods -->
+kubectl get pods
 
-<!-- Noagios
+Noagios
 
 Download the Nagios Docker image.
 Create and run a container.
 Map the dashboard port.
 Open the dashboard in a browser.
-Observe host and service status. -->
+Observe host and service status.
 
 
 
 
-<!-- # Pull Nagios image
+# Pull Nagios image
 docker pull jasonrivers/nagios:latest
 
 # Run Nagios container
@@ -113,11 +114,11 @@ docker stop nagios
 docker start nagios
 
 # Remove container
-docker rm -f nagios -->
+docker rm -f nagios
 
-<!-- Identify the possible cause and troubleshoot the deployment using Kubernetes commands -->
+Identify the possible cause and troubleshoot the deployment using Kubernetes commands
 
-<!-- # Check Pods
+# Check Pods
 kubectl get pods
 
 # Describe problematic Pod
@@ -145,9 +146,9 @@ kubectl describe deployment food-management
 kubectl rollout restart deployment food-management
 
 # Verify rollout
-kubectl rollout status deployment food-management -->
+kubectl rollout status deployment food-management
 
-<!-- 
+
 Create Ubuntu EC2 instance
 Open AWS EC2 Console.
 
@@ -157,22 +158,22 @@ Follow these steps:
 3. Select AMI: Ubuntu Server 24.04 LTS.
 4. Instance type: t2.micro or an eligible free-tier instance type available in your account.
 5. Create or select a key pair.
-6. Under Network settings, configure the security group. -->
-<!-- Type	Port	Source
+6. Under Network settings, configure the security group. 
+Type	Port	Source
 SSH	22	My         IP
-HTTP	80	    Anywhere (0.0.0.0/0) -->
-<!-- 7.Click Launch instance.
-8.Wait until instance state shows Running and status checks pass. -->
+HTTP	80	    Anywhere (0.0.0.0/0) 
+7.Click Launch instance.
+8.Wait until instance state shows Running and status checks pass.
 
-<!-- Connect to EC2
+Connect to EC2
 In the EC2 dashboard:
 1. Select your instance.
 2. Click Connect.
 3. Select EC2 Instance Connect.
-4. Click Connect. -->
+4. Click Connect.
 
 
-<!-- # Update Ubuntu
+ # Update Ubuntu
 sudo apt update
 
 # Install Docker
@@ -212,14 +213,14 @@ nano index.html(
 sudo docker run -d --name food-container -p 80:80 -v "$PWD/index.html:/usr/share/nginx/html/index.html:ro" nginx:latest
 
 # Check running containers
-sudo docker ps -->
+sudo docker ps
 
 
-<!-- 8. Open website in browser
+8. Open website in browser
 Go to AWS EC2 Console → Select your instance → Copy its Public IPv4 address.
-http://YOUR_PUBLIC_IP -->
+http://YOUR_PUBLIC_IP 
 
-<!-- Step 1: Open AWS EC2 Console
+Step 1: Open AWS EC2 Console
 1. Go to AWS EC2 Console.
 2. Click Instances from the left sidebar.
 3. Select your Ubuntu EC2 instance.
@@ -232,15 +233,15 @@ A new browser tab opens with a black Ubuntu terminal.
 Step 3: Enter commands one by one-->
 
 
-<!-- Connect to AWS EC2 using SSH, Clone GitHub Repository and Build Docker Image.
+ Connect to AWS EC2 using SSH, Clone GitHub Repository and Build Docker Image.
 Open Windows PowerShell on your laptop.
 ssh -i "YOUR_KEY_PATH.pem" ubuntu@YOUR_PUBLIC_IP
 Replace:
 - YOUR_KEY_PATH.pem with the location of your downloaded EC2 key pair.
 - YOUR_PUBLIC_IP with your EC2 instance's Public IPv4 address.
- -->
+ 
 
-<!-- 
+
 Install Git and Docker
 Enter these commands inside the EC2 Ubuntu terminal:
 # Update Ubuntu
@@ -292,9 +293,9 @@ sudo docker run -d --name food-container -p 9090:8080 food-management:latest
 
 7. Verify container
 sudo docker ps
--->
 
-<!-- Configure AWS Security Group
+
+Configure AWS Security Group
 Go to:
 
 AWS Console → EC2 → Instances → Select instance → Security → Security Groups → Edit inbound rules.
@@ -311,7 +312,7 @@ Copy your EC2 Public IPv4 address.
 Replace YOUR_PUBLIC_IP with your EC2 public IPv4 address. -->
 
 
-<!-- Configure the EC2 security group's inbound rules to allow application traffic on port 9090 and verify website accessibility using the public IPv4 address. 
+ Configure the EC2 security group's inbound rules to allow application traffic on port 9090 and verify website accessibility using the public IPv4 address. 
 
 follow these steps:
 1. Click Instances.
@@ -372,10 +373,10 @@ Replace YOUR_PUBLIC_IP with your EC2 instance's actual public IPv4 address.
 
 Your Food Management System should now be accessible!
 
--->
 
 
-<!-- Stop the Docker container and terminate the EC2 instance after testing
+
+ Stop the Docker container and terminate the EC2 instance after testing
 Step 1: Connect to your EC2 instance
 Open AWS Console → EC2 → Instances → Select your instance → Connect → EC2 Instance Connect
 
@@ -402,11 +403,11 @@ Go to EC2 → Instances.
 Select the EC2 instance you created for this practical.
 Click Instance state.
 Select Terminate instance.
-Confirm by clicking Terminate -->
+Confirm by clicking Terminate 
 
 
 
-<!-- Run Docker Compose
+ Run Docker Compose
 Execute these commands in the project terminal:
 
 Step 1: Build images and start containers
@@ -452,4 +453,3 @@ docker compose up -d --build
 docker ps
 docker compose logs
 docker compose down
--->
