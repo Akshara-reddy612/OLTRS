@@ -2,3 +2,6 @@ docker pull jasonrivers/nagios:latest
 docker run -d --name nagiosdemo -p 8880:80 jasonrivers/nagios:latest
 username:nagiosadmin
 password:nagios
+docker stop containerid
+docker rm conatinername
+docker rmi imagename
