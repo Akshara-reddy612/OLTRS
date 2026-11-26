@@ -1,2 +1,11 @@
 minikube start
 kubectl create deployment mynginx --image=nginx
+kubectl get deployments
+kubectl expose deployment mynginx --type=NodePort --port=80 --target-port=80
+kubectl get service
+kubectl scale deployment mynginx --replicas=4
+kubectl get pods
+kubectl port-forward svc/mynginx 8084:80
+kubectl delete deployment mynginx
+kubectl delete service mynginx
+minikube stop
